@@ -56,9 +56,15 @@ class AgendaController extends Controller
         return view('contacts.edit', ['contact' => $contact]);
     }
 
-    public function update(Request $request){
+    public function update(Request $request, $id){
         
-        Contact::findOrFail($request->id)->update($request->all());
+        $contact = Contact::find($id);
+
+        $contact->name = $request->name;
+        $contact->phone = $request->phone;
+        $contact->observations = $request->observations;
+
+        $contact->save();
 
         return redirect('/')->with('msg', 'Evento editado com sucesso! ');
     }
