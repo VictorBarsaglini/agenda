@@ -21,6 +21,22 @@
         <div class="navbar-nav">
           <a class="nav-link active" id="home-link" href="/">Agenda</a>
           <a class="nav-link active" href="/contacts/create">Adicionar Contato</a>
+          @auth
+          <a class="nav-link active" href="/dashboard">Meus contatos</a>
+          <form action="/logout" method="POST">
+            @csrf
+            <a href="/logout" 
+                class="nav-link" 
+                onclick="event.preventDefault();
+                this.closest('form').submit();">
+                Sair
+              </a>    
+          </form>
+          @endauth
+          @guest
+          <a class="nav-link active" href="/login">Entrar</a>
+          <a class="nav-link active" href="/register">Cadastrar</a>
+          @endguest
         </div>
       </div>
     </nav>
