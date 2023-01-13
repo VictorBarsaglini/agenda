@@ -17,12 +17,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AgendaController;
 
 Route::get('/',[AgendaController::class, 'index']);
-Route::get('/contacts/create', [AgendaController::class, 'create']);
+Route::get('/contacts/create', [AgendaController::class, 'create']);//só usuário logado
 Route::post('/contacts', [AgendaController::class, 'store']);
 Route::get('/contacts/{id}', [AgendaController::class, 'show']);
 Route::get('/contacts/edit/{id}',[AgendaController::class, 'edit']);
 Route::put('/contacts/update/{id}',[AgendaController::class, 'update']);
-Route::delete('/contacts/{id}',[AgendaController::class, 'destroy']);
+Route::delete('/contacts/{id}',[AgendaController::class, 'destroy'])->middleware('auth');
 
 
  

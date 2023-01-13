@@ -46,7 +46,7 @@
     <p class="msg">{{ session('msg') }}</p>
   @endif
     <h1 id="main-title">Minha Agenda</h1>
-    
+    @if(count($contacts) > 0)
       <table class="table" id="contacts-table">
         <thead>
           <tr>
@@ -77,3 +77,6 @@
             @endforeach
         </tbody>
       </table>
+      @else
+      <p id="empty-list-text">Ainda não há contatos na sua agenda, <a href="/contacts/create">clique aqui para adicionar</a>.</p>
+      @endif 
