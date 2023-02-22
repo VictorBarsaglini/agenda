@@ -46,7 +46,11 @@ class AgendaController extends Controller
         
         Contact::findOrFail($id)->delete();
 
+
         return redirect('/')->with('msg', 'Contato excluído com sucesso! ');
+
+        return redirect('/')->with('msg', 'Conatato excluído com sucesso! ');
+
     }
 
     public function edit($id){
