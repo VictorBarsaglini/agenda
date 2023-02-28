@@ -36,64 +36,37 @@
     <p class="msg">{{ session('msg') }}</p>
     @endif
     <h1 id="main-title">Minha Agenda</h1>
-
-    <table class="table" id="contacts-table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Nome</th>
-          <th scope="col">Telefone</th>
-          <th scope="col">Observações</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach($contacts as $contact)
-        <tr>
-          <td scope="row" class="col-id">{{ $contact->id }}</td>
-          <td scope="row">{{ $contact->name }}</td>
-          <td scope="row">{{ $contact->phone }}</td>
-          <td class="actions">
-            <a href="/contacts/{{$contact->id}}"><i class="fas fa-eye check-icon"></i></a>
-            <a href="/contacts/edit/{{$contact->id}}"><i class="far fa-edit edit-icon"></i></a>
-            <a type="button" data-toggle="modal" data-target="#modal-delete"><i class="fas fa-times delete-icon"></i></a>
-
-            {{-- <form class="delete-form" action="/contacts/{{ $contact->id}}" method="POST">
-            @csrf
-            @method ('DELETE')
-            <input type="hidden" name="type" value="delete">
-            <input type="hidden" name="id" value="{{ $contact->id }}">
-            <button type="submit" class="delete-btn"><i class="fas fa-times delete-icon"></i></button>
-            </form> --}}
-
-
-        <!-- Modal deletar -->
-        <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Confirmar exclusão?</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                        <form class="delete-form" action="/contacts/{{ $contact->id}}" method="POST">
-                          @csrf
-                          @method ('DELETE')
-                          <input type="hidden" name="type" value="delete">
-                          <input type="hidden" name="id" value="{{ $contact->id }}">
-                          <button type="submit" class="btn btn-danger">Confirmar</button>
-                          </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-          </td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
+    @if(count($contacts) > 0)
+      <table class="table" id="contacts-table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">Observações</th>
+          </tr>
+        </thead>
+        <tbody>
+            @foreach($contacts as $contact)
+            <tr>
+              <td scope="row" class="col-id">{{ $contact->id }}</td>
+              <td scope="row">{{ $contact->name }}</td>
+              <td scope="row">{{ $contact->phone }}</td>
+              <td class="actions">
+                <a href="/contacts/{{$contact->id}}"><i class="fas fa-eye check-icon"></i></a>
+                <a href="/contacts/edit/{{$contact->id}}"><i class="far fa-edit edit-icon"></i></a>
+                <form class="delete-form" action="/contacts/{{ $contact->id}}" method="POST">
+                @csrf
+                @method ('DELETE')
+                  <input type="hidden" name="type" value="delete">
+                  <input type="hidden" name="id" value="{{ $contact->id }}">
+                  <button type="submit" class="delete-btn"><i class="fas fa-times delete-icon"></i></button>
+                </form>
+              </td>
+            </tr>
+            @endforeach
+        </tbody>
+      </table>
+      @else
+      <p id="empty-list-text">Ainda não há contatos na sua agenda, <a href="/contacts/create">clique aqui para adicionar</a>.</p>
+      @endif 
